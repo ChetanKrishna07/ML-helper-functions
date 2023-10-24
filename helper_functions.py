@@ -10,7 +10,7 @@ import zipfile
 
 def unzip_data(zipfile_name):
     zipref = zipfile.ZipFile(zipfile_name)
-    zipref.extract_all()
+    zipref.extractall()
     zipref.close()
 
 def plot_decision_boundary(model, X, y):
