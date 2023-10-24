@@ -6,6 +6,7 @@ import tensorflow_hub as hub
 from tensorflow.keras import layers
 import os
 import datetime
+import zipfile
 
 def unzip_data(zipfile_name):
     zipref = zipfile.ZipFile(zipfile_name)
