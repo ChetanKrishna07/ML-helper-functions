@@ -7,6 +7,11 @@ from tensorflow.keras import layers
 import os
 import datetime
 
+def unzip_data(zipfile_name):
+    zipref = zipfile.ZipFile(zipfile_name)
+    zipref.extract_all()
+    zipref.close()
+
 def plot_decision_boundary(model, X, y):
   """
   Plots the decision boundary created by a model predicting X
