@@ -266,3 +266,42 @@ def get_classnames(train_dir):
     Returns a list of classes in the train_dir
     """
     return np.array(sorted(os.listdir(train_dir)))
+  
+
+# Let's create a function to plot before fine-tuning and after fine-tuning
+
+def compare_histories(original_history, augmented_history, initial_epochs=5):
+  """
+  Compares two model history objects.
+  """
+  # Get original history measurements
+  acc = original_history.history["accuracy"]
+  loss = original_history.history["loss"]
+
+  val_acc = original_history.history["val_accuracy"]
+  val_loss = original_history.history["val_loss"]
+
+  # Combine original history
+  total_acc = acc + augmented_history.history["accuracy"]
+  total_loss = loss + augmented_history.history["loss"]
+
+  total_val_acc = val_acc + augmented_history.history["val_accuracy"]
+  total_val_loss = val_loss + augmented_history.history["val_loss"]
+
+  # Make plots
+  plt.figure(figsize=(8, 8))
+
+  plt.subplot(2, 1, 1)
+  plt.plot(total_acc, label="Training Accuracy")
+  plt.plot(total_val_acc, label="Val Accuracy ")
+  plt.plot([initial_epochs-1, initial_epochs-1], plt.ylim(0, 1), label="Start Fine Tuning")
+  plt.legend(loc="lower right")
+  plt.title("Training and Validation Accuracy")
+
+  plt.subplot(2, 1, 2)
+  plt.plot(total_loss, label="Training Loss")
+  plt.plot(total_val_loss, label="Val Loss ")
+  plt.plot([initial_epochs-1, initial_epochs-1], plt.ylim(0, 1), label="Start Fine Tuning")
+  plt.legend(loc="lower right")
+  plt.title("Training and Validation Loss")
+  plt.show()
